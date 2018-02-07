@@ -34,12 +34,9 @@ sns.set(rc={'figure.figsize':(20,40)})
 sns.set_style("white")
 print(infants)
 
-infants_bf = infants[infants['How'] == 'Exclusively Breastfeeding']
+
+# Extract the states where the infants who are not being breastfed have averages > the 80th quantile
 infants_nbf = infants[infants['How'] == 'Not Breastfeeding']
-
-
 quantiles_95_nbf = infants_nbf[infants_nbf['Average'] > infants_nbf['Average'].quantile(0.80)]
 
-
-plot3 = sns.barplot(data=infants[infants['Where'].isin(quantiles_95_nbf['Where'])], y='Where', x='Average', hue='How', hue_order=['Exclusively Breastfeeding','Not Breastfeeding'],palette=sns.color_palette(palette=['seagreen','indianred']))
-#plot3 = sns.plt.title('Breastfeeding Of Low-Income Infants In FY16: Averages By State', fontsize=20)
+sns.barplot(data=infants[infants['Where'].isin(quantiles_95_nbf['Where'])], y='Where', x='Average', hue='How', hue_order=['Exclusively Breastfeeding','Not Breastfeeding'],palette=sns.color_palette(palette=['seagreen','indianred']))
